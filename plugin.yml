@@ -1,14 +1,24 @@
 ---
-name: template-buildkite-plugin
-description: what your plugin does
-author: Datum
-requirements:
-  - if you have requirements
+name: Git Commit
+description: A buildkite plugin to commit and push changes to a git repository
+author: https://github.com/datumforge
+requirements: []
 configuration:
   properties:
-    propertyname:
+    add:
       type: string
-  required: []
-    # - if any properties are required
-  dependencies:
-    dependencyname: [dep]
+    branch:
+      type: string
+    create-branch:
+      type: boolean
+    message:
+      type: string
+    remote:
+      type: string
+    user:
+      type: object
+      properties:
+        email:
+          type: string
+        name:
+          type: string
