@@ -1,36 +1,69 @@
-[![Build status](https://badge.buildkite.com/df549c652f77fa3660f4d7f975fd3bb5744e12fb4066719553.svg?branch=main)](https://buildkite.com/datum/template-buildkite-plugin)
+[![Build status](https://badge.buildkite.com/7eca2ecc8cd4f571e1c2e26000c51030c808e7bca6b9b25e42.svg)](https://buildkite.com/datum/git-commit-buildkite-plugin)
 
-# Template Buildkite Plugin
+# git-commit
 
-Check the [buildkite organization](https://github.com/buildkite-plugins) or [website](https://buildkite.com/plugins) to see if your plugin already exists or we can contribute to it !
-
-Be sure to update this readme with your plugin information after using the template repository - for more info checkout Buildkite's documentation [here](https://buildkite.com/docs/plugins)
+A buildkite plugin to commit and push results of command(s) to a remote git repository
 
 ## Example
-
-Provide an example of using this plugin, like so:
 
 Add the following to your `pipeline.yml`:
 
 ```yml
 steps:
-  - command: ls
+  - command: task generate
     plugins:
-      - a-github-user/template#v1.0.0:
-          pattern: '*.md'
+      - datumforge/git-commit#v1.0.0: ~
 ```
+
+The default options commit all changed/added files to `$BUILDKITE_BRANCH` and pushes to `origin`.
+
+An example with fully customized options:
+
+```yml
+steps:
+  - command: task generate
+    plugins:
+      - datumforge/git-commit#v1.0.0:
+          add: app/
+          branch: mitb
+          create-branch: true
+          message: "Task generate output"
+          remote: upstream
+          user:
+            name: bender-rodriguez
+            email: brodriguez@datum.net
+```
+
+## Configuration
+
+### add (optional, defaults to `.`)
+
+A pathspec that will be passed to `git add -A` to add changed files.
+
+### branch (optional, defaults to `$BUILDKITE_BRANCH`)
+
+The branch where changes will be committed. Since Buildkite runs builds in a detached HEAD state, this plugin will fetch and checkout the given branch prior to committing. Unless we're creating a new branch. See `create-branch`
+
+### create-branch (optional, defaults to `false`)
+
+When set to true the branch will be created, rather than fetched from the remote
+
+### message (optional, defaults to `Build #${BUILDKITE_BUILD_NUMBER}`)
+
+The commit message
+
+### remote (optional, defaults to `origin`)
+
+The git remote where changes will be pushed
+
+### user.email (optional)
+
+If given, will configure the git user email for the repo
+
+### user.name (optional)
+
+If given, will configure the git user name for the repo
 
 ## Developing
 
-Provide examples on how to modify and test, e.g.:
-
-To run the linter:
-```shell
-task lint
-```
-
-To run the tests:
-
-```shell
-task test
-```
+Requires [taskfile](https://taskfile.dev/installation/) - `task lint` and `task test` to validate updates to the plugin
