@@ -24,6 +24,32 @@ post_command_hook="$PWD/hooks/post-command"
   unstub git
 }
 
+@test "Commits all changes over https" {
+  export BUILDKITE_BUILD_NUMBER=1
+  export BUILDKITE_BRANCH=main
+  export BUILDKITE_REPO=https://github.com/datumforge/meow
+  export GITHUB_TOKEN=gh_redacted
+
+  export BUILDKITE_PLUGIN_GIT_COMMIT_USER_NAME=Robot
+  export BUILDKITE_PLUGIN_GIT_COMMIT_HTTPS=true
+
+  stub git \
+    "config user.name \"Robot\" : echo config.name" \
+    "fetch origin main:main : echo fetch" \
+    "checkout main : echo checkout" \
+    "add -A . : echo add" \
+    "diff-index --quiet HEAD : false" \
+    "commit -m \"Build #1\" : echo commit" \
+    "push -u \"https://Robot:gh_redacted@github.com/datumforge/meow\" main : echo push" 
+
+  run "$post_command_hook"
+
+  assert_success
+  assert_output --partial "--- Committing changes"
+  assert_output --partial "--- Pushing to origin"
+  unstub git
+}
+
 @test "Configures git user.name" {
   export BUILDKITE_BUILD_NUMBER=1
   export BUILDKITE_BRANCH=main

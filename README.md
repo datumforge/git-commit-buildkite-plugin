@@ -64,6 +64,10 @@ If given, will configure the git user email for the repo
 
 If given, will configure the git user name for the repo
 
+### https (optional)
+
+If set to true, commits will be pushed over `https` instead of `ssh`. The `user.name` configuration and `GITHUB_TOKEN` environment variable **must** also be set. 
+
 ## Developing
 
 Requires [taskfile](https://taskfile.dev/installation/) - `task lint` and `task test` to validate updates to the plugin

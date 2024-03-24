@@ -11,6 +11,7 @@ fi
 remote=${BUILDKITE_PLUGIN_GIT_COMMIT_REMOTE:-origin}
 branch=${BUILDKITE_PLUGIN_GIT_COMMIT_BRANCH:-${BUILDKITE_BRANCH}}
 message=${BUILDKITE_PLUGIN_GIT_COMMIT_MESSAGE:-"Build #${BUILDKITE_BUILD_NUMBER}"}
+https_commit=${BUILDKITE_PLUGIN_GIT_COMMIT_HTTPS:-"false"}
 
 if [[ -n ${BUILDKITE_PLUGIN_GIT_COMMIT_USER_NAME+x} ]]
 then
@@ -36,7 +37,14 @@ then
   echo "--- Committing changes"
   git commit -m "${message}"
   echo "--- Pushing to origin"
-  git push "$remote" "$branch"
+
+  if [[ "${https_commit}" == "false" ]]
+  then
+    git push "$remote" "$branch"
+  else 
+    repo=$(echo "${BUILDKITE_REPO}" | sed 's/https:\/\///')
+    git push -u "https://${BUILDKITE_PLUGIN_GIT_COMMIT_USER_NAME}:${GITHUB_TOKEN}@${repo}" "${branch}"
+  fi
 else
   echo "--- No changes to commit"
 fi
