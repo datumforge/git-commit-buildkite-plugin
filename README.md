@@ -12,7 +12,7 @@ Add the following to your `pipeline.yml`:
 steps:
   - command: task generate
     plugins:
-      - datumforge/git-commit#v1.0.0: ~
+      - datumforge/git-commit#v1.0.1: ~
 ```
 
 The default options commit all changed/added files to `$BUILDKITE_BRANCH` and pushes to `origin`.
@@ -23,10 +23,11 @@ An example with fully customized options:
 steps:
   - command: task generate
     plugins:
-      - datumforge/git-commit#v1.0.0:
+      - datumforge/git-commit#v1.0.1:
           add: app/
           branch: mitb
           create-branch: true
+          ssh-sign: true
           message: "Task generate output"
           remote: upstream
           user:
@@ -67,6 +68,14 @@ If given, will configure the git user name for the repo
 ### https (optional)
 
 If set to true, commits will be pushed over `https` instead of `ssh`. The `user.name` configuration and `GITHUB_TOKEN` environment variable **must** also be set. 
+
+### ssh-sign (optional)
+
+If set to true, commits will include the `--signoff` flag to sign commits with the `ssh` key
+
+### gpg-sign (optional)
+
+If set to true, commits will include the `--gpg-sign` flag to sign commits with the `gpg` key
 
 ## Developing
 
