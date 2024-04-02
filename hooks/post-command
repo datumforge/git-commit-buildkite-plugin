@@ -48,7 +48,7 @@ then
   fi
 
   echo "--- Committing changes"
-  git commit $flags -m "${message}"
+  git commit "${flags}" -m "${message}"
   echo "--- Pushing to origin"
 
   if [[ "${https_commit}" == "false" ]]
