@@ -17,6 +17,10 @@ configuration:
       type: string
     https:
       type: boolean
+    ssh-sign:
+      type: boolean
+    gpg-sign:
+      type: boolean
     user:
       type: object
       properties:

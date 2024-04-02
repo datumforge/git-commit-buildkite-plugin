@@ -12,6 +12,8 @@ remote=${BUILDKITE_PLUGIN_GIT_COMMIT_REMOTE:-origin}
 branch=${BUILDKITE_PLUGIN_GIT_COMMIT_BRANCH:-${BUILDKITE_BRANCH}}
 message=${BUILDKITE_PLUGIN_GIT_COMMIT_MESSAGE:-"Build #${BUILDKITE_BUILD_NUMBER}"}
 https_commit=${BUILDKITE_PLUGIN_GIT_COMMIT_HTTPS:-"false"}
+ssh_sign=${BUILDKITE_PLUGIN_GIT_COMMIT_SSH_SIGN:-"false"}
+gpg_sign=${BUILDKITE_PLUGIN_GIT_COMMIT_GPG_SIGN:-"false"}
 
 if [[ -n ${BUILDKITE_PLUGIN_GIT_COMMIT_USER_NAME+x} ]]
 then
@@ -34,8 +36,19 @@ git add -A "${BUILDKITE_PLUGIN_GIT_COMMIT_ADD:-.}"
 
 if ! git diff-index --quiet HEAD
 then
+  flags=""
+  if [[ "${ssh_sign}" == "true" ]]
+  then
+    flags="${flags} --signoff"
+  fi
+
+  if [[ "${gpg_sign}" == "true" ]]
+  then
+    flags="${flags} --gpg-sign"
+  fi
+
   echo "--- Committing changes"
-  git commit -m "${message}"
+  git commit "${flags}" -m "${message}"
   echo "--- Pushing to origin"
 
   if [[ "${https_commit}" == "false" ]]
