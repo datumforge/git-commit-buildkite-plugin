@@ -13,7 +13,7 @@ post_command_hook="$PWD/hooks/post-command"
     "checkout main : echo checkout" \
     "add -A . : echo add" \
     "diff-index --quiet HEAD : false" \
-    "commit -m \"Build #1\" : echo commit" \
+    "commit \"\" -m \"Build #1\" : echo commit" \
     "push origin main : echo push"
 
   run "$post_command_hook"
@@ -39,7 +39,7 @@ post_command_hook="$PWD/hooks/post-command"
     "checkout main : echo checkout" \
     "add -A . : echo add" \
     "diff-index --quiet HEAD : false" \
-    "commit -m \"Build #1\" : echo commit" \
+    "commit \"\" -m \"Build #1\" : echo commit" \
     "push -u \"https://Robot:gh_redacted@github.com/datumforge/meow\" main : echo push" 
 
   run "$post_command_hook"
@@ -60,7 +60,7 @@ post_command_hook="$PWD/hooks/post-command"
     "checkout main : echo checkout" \
     "add -A . : echo add" \
     "diff-index --quiet HEAD : false" \
-    "commit --signoff -m \"Build #1\" : echo commit" \
+    "commit \" --signoff\" -m \"Build #1\" : echo commit" \
     "push origin main : echo push"
 
   run "$post_command_hook"
@@ -81,7 +81,7 @@ post_command_hook="$PWD/hooks/post-command"
     "checkout main : echo checkout" \
     "add -A . : echo add" \
     "diff-index --quiet HEAD : false" \
-    "commit --gpg-sign -m \"Build #1\" : echo commit" \
+    "commit \" --gpg-sign\" -m \"Build #1\" : echo commit" \
     "push origin main : echo push"
 
   run "$post_command_hook"
@@ -104,7 +104,7 @@ post_command_hook="$PWD/hooks/post-command"
     "checkout main : echo checkout" \
     "add -A . : echo add" \
     "diff-index --quiet HEAD : false" \
-    "commit -m \"Build #1\" : echo commit" \
+    "commit \"\" -m \"Build #1\" : echo commit" \
     "push origin main : echo push"
 
   run "$post_command_hook"
@@ -127,7 +127,7 @@ post_command_hook="$PWD/hooks/post-command"
     "checkout main : echo checkout" \
     "add -A . : echo add" \
     "diff-index --quiet HEAD : false" \
-    "commit -m \"Build #1\" : echo commit" \
+    "commit \"\" -m \"Build #1\" : echo commit" \
     "push origin main : echo push"
 
   run "$post_command_hook"
@@ -149,7 +149,7 @@ post_command_hook="$PWD/hooks/post-command"
     "checkout main : echo checkout" \
     "add -A . : echo add" \
     "diff-index --quiet HEAD : false" \
-    "commit -m \"Build #1\" : echo commit" \
+    "commit \"\" -m \"Build #1\" : echo commit" \
     "push upstream main : echo push"
 
   run "$post_command_hook"
@@ -171,7 +171,7 @@ post_command_hook="$PWD/hooks/post-command"
     "checkout code-orange : echo checkout" \
     "add -A . : echo add" \
     "diff-index --quiet HEAD : false" \
-    "commit -m \"Build #1\" : echo commit" \
+    "commit \"\" -m \"Build #1\" : echo commit" \
     "push origin code-orange : echo push"
 
   run "$post_command_hook"
@@ -193,7 +193,7 @@ post_command_hook="$PWD/hooks/post-command"
     "checkout -b code-orange : echo checkout" \
     "add -A . : echo add" \
     "diff-index --quiet HEAD : false" \
-    "commit -m \"Build #1\" : echo commit" \
+    "commit \"\" -m \"Build #1\" : echo commit" \
     "push origin code-orange : echo push"
 
   run "$post_command_hook"
@@ -215,7 +215,7 @@ post_command_hook="$PWD/hooks/post-command"
     "checkout main : echo checkout" \
     "add -A . : echo add" \
     "diff-index --quiet HEAD : false" \
-    "commit -m \"Good Morning!\" : echo commit" \
+    "commit \"\" -m \"Good Morning!\" : echo commit" \
     "push origin main : echo push"
 
   run "$post_command_hook"
@@ -237,7 +237,7 @@ post_command_hook="$PWD/hooks/post-command"
     "checkout main : echo checkout" \
     "add -A app : echo add" \
     "diff-index --quiet HEAD : false" \
-    "commit -m \"Build #1\" : echo commit" \
+    "commit \"\" -m \"Build #1\" : echo commit" \
     "push origin main : echo push"
 
   run "$post_command_hook"
